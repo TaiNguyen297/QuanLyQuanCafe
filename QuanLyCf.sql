@@ -52,3 +52,47 @@ CREATE TABLE BillInfo
 	FOREIGN KEY (idBill) references dbo.Bill(id),
 	FOREIGN KEY (idFood) references dbo.Food(id)
 )
+
+INSERT INTO dbo.Account
+        ( UserName ,
+          DisplayName ,
+          PassWord ,
+          Type
+        )
+VALUES  ( N'K9' , -- UserName - nvarchar(100)
+          N'RongK9' , -- DisplayName - nvarchar(100)
+          N'1' , -- PassWord - nvarchar(1000)
+          1  -- Type - int
+        )
+
+INSERT INTO dbo.Account
+        ( UserName ,
+          DisplayName ,
+          PassWord ,
+          Type
+        )
+VALUES  ( N'staff' , -- UserName - nvarchar(100)
+          N'staff' , -- DisplayName - nvarchar(100)
+          N'1' , -- PassWord - nvarchar(1000)
+          0  -- Type - int
+        )
+GO
+
+CREATE PROC USP_GetAccountByUserName
+@userName nvarchar(100)
+AS
+BEGIN
+	SELECT * FROM dbo.Account WHERE UserName = @userName
+END 
+GO
+
+EXEC dbo.USP_GetAccountByUserName @userName = N'K9'
+SELECT * FROM dbo.Account where UserName = N'K9' AND PassWord = N'1'
+
+CREATE PROC USP_Login
+@userName nvarchar(100), @passWord nvarchar(100)
+AS
+BEGIN
+	SELECT * FROM dbo.Account WHERE UserName = @userName AND PassWord = @passWord
+END
+GO

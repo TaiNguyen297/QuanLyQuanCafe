@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Configuration;
+using QuanLyQuanCAFE.DAO;
 
 namespace QuanLyQuanCAFE
 {
@@ -18,10 +21,15 @@ namespace QuanLyQuanCAFE
             
             LoadAccountList();
         }
-
+       
         void LoadAccountList()
         {
-            
+            string query = "EXEC dbo.USP_GetAccountByUserName @userName";
+
+            DataProvider provider = new DataProvider();
+
+            dataGridView2.DataSource = provider.ExecuteQuery(query, new object[] { "staff" });
+
         }
 
         private void Admin_Load(object sender, EventArgs e)
