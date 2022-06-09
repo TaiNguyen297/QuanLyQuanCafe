@@ -12,11 +12,37 @@ namespace QuanLyQuanCAFE
 {
     public partial class TableManager : Form
     {
+        private object flpTable;
+
         public TableManager()
         {
             InitializeComponent();
+
+            LoadTable(GetFlpTable());
         }
 
+        private object GetFlpTable()
+        {
+            return flpTable;
+        }
+
+        #region Method
+        void LoadTable (object flpTable)
+        {
+            List<Table> tableList = TableDAO.Instance.LoadTableList();
+            foreach (Table table in tableList)
+            {
+                Button btn = new Button() { Width = TableDAO.TableWidth, Height = TableDAO.TableHeight };
+                flpTable.Controls.Add(btn);
+
+
+
+            }
+        }
+        #endregion
+
+
+        #region Events
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -33,5 +59,6 @@ namespace QuanLyQuanCAFE
         {
             this.Close();
         }
+        #endregion
     }
 }

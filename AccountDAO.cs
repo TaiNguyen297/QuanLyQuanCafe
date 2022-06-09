@@ -28,46 +28,5 @@ namespace QuanLyQuanCAFE.DAO
 
             return result.Rows.Count > 0;
         }
-        public bool UpdateAccount(string userName, string displayName, string pass, string newPass)
-        {
-            int result = DataProvider.Instance.ExecuteNonQuery("exec USP_UpdateAccount @userName , @displayName , @password , @newPassword", new object[]{userName, displayName, password, newPassword});
-            return result > 0;
-        }
-        public DataTable GetListAccount()
-        {
-            return DataProvider.Instance.ExecuteQuery("SELECT UserName, DisplayName, Type FROM dbo.Account");
-        }
-        public Account GetAccountByUserName(string userName)
-        {
-            DataTable data = DataProvider.Instance.ExecuteQuery("Select * from account where userName = '" + userName + "'");
-            foreach (DataRow item in data.Rows)
-            {
-                return new Account(item);
-            }
-            return null;
-        }
-
-        public bool InsertAccount(string name, string displayName, int Type)
-        {
-            string query = string.Format("INSERT dbo.Account ( UserName, DisplayName, Type )VALUES ( N'{0}', N'{1}', {2})", name, displayName, Type);
-            int result = DataProvider.Instance.ExecuteNonQuery(query);
-
-            return result > 0;
-        }
-
-        public bool UpdateAccount(string name, string displayName, int Type)
-        {
-            string query = string.Format("UPDATE dbo.Account SET DisplayName = N'{1}', Type = {2} WHERE UserName = N'{0}'", name, displayName, Type);
-            int result = DataProvider.Instance.ExecuteNonQuery(query);
-
-            return result > 0;
-        }
-        public bool DeleteAccount(string name)
-        {
-            string query = string.Format("Delete Account where UserName = N'{0}'", name);
-            int result = DataProvider.Instance.ExecuteNonQuery(query);
-
-            return result > 0;
-        }
     }
 }

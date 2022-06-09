@@ -15,14 +15,13 @@ namespace QuanLyQuanCAFE
 {
     public partial class Admin : Form
     {
-        BindingSource accountList = new BindingSource();
         public Admin()
         {
             InitializeComponent();
             
             LoadAccountList();
         }
-             
+       
         void LoadAccountList()
         {
             string query = "EXEC dbo.USP_GetAccountByUserName @userName";
